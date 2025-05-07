@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>شخصيات وأوامر - حركات واقعية مع صوت</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');  
+  body {  
+    margin: 0;  
+    padding: 0;  
+    font-family: 'Cairo', sans-serif;  
+    background: linear-gradient(135deg, #667eea, #764ba2);  
+    color: #fff;  
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;  
+    min-height: 600px;  
+    max-width: 350px;  
+    margin-left: auto;  
+    margin-right: auto;  
+    box-sizing: border-box;  
+    user-select: none;  
+  }  
+  h1 {  
+    margin-top: 20px;  
+    font-weight: 700;  
+    text-shadow: 0 0 5px rgba(0,0,0,0.3);  
+  }  
+  .characters {  
+    display: flex;  
+    justify-content: space-between;  
+    width: 100%;  
+    margin-top: 20px;  
+    margin-bottom: 25px;  
+  }  
+  .character {  
+    background: rgba(255,255,255,0.12);  
+    border-radius: 20px;  
+    width: 80px;  
+    height: 130px;  
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;  
+    justify-content: center;  
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);  
+    user-select: none;  
+    cursor: pointer;  
+    position: relative;  
+    transform-style: preserve-3d;  
+    transition: box-shadow 0.3s ease;  
+  }  
+  .character:hover, .character:focus {  
+    outline: none;  
+    box-shadow: 0 12px 30px rgba(255,255,255,0.6);  
+  }  
+  .char-icon {  
+    font-size: 56px;  
+    margin-bottom: 12px;  
+    display: block;  
+    transform-origin: 50% 90%;  
+    filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.3));  
+  }  
+  .char-name {  
+    font-weight: 700;  
+    font-size: 19px;  
+    color: #fff;  
+    text-shadow: 0 0 8px rgba(0,0,0,0.75);  
+    white-space: nowrap;  
+    text-align: center;  
+  }  
+  .commands {  
+    width: 90%;  
+    margin-bottom: 30px;  
+  }  
+  label {  
+    font-weight: 700;  
+    display: block;  
+    margin-bottom: 10px;  
+    font-size: 20px;  
+  }  
+  select, button {  
+    width: 100%;  
+    font-size: 19px;  
+    padding: 14px;  
+    border-radius: 12px;  
+    border: none;  
+    background: #5a4ea0;  
+    color: #fff;  
+    box-shadow: 0 5px 16px rgba(0,0,0,0.35);  
+    transition: background 0.4s ease;  
+  }  
+  select:focus, button:focus {  
+    outline: none;  
+    background: #7a6ef7;  
+  }  
+  button:hover:not(:disabled) {  
+    background: #8b7fe9;  
+  }  
+  button:disabled {  
+    background: #8b7fc9;  
+    cursor: not-allowed;  
+  }  
+  .action-message {  
+    margin-top: 12px;  
+    font-size: 20px;  
+    background-color: rgba(255,255,255,0.3);  
+    border-radius: 10px;  
+    padding: 16px;  
+    min-height: 60px;  
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.4);  
+    text-align: center;  
+    font-weight: 700;  
+    letter-spacing: 0.5px;  
+    user-select: text;  
+  }  /* Animations */
+
+/* Improved jump: smooth crouch, spring and landing */
+@keyframes jumpImproved {
+0% { transform: scaleY(1) translateY(0); }
+15% { transform: scaleY(0.75) translateY(12px); }
+45% { transform: scaleY(1.1) translateY(-70px); }
+70% { transform: scaleY(0.9) translateY(18px); }
+100% { transform: scaleY(1) translateY(0); }
+}
+
+/* Dance: sway, bounce, and rotate with 3 cycles */
+@keyframes danceImproved {
+0%, 100% { transform: translateX(0) rotate(0deg) scale(1); }
+16% { transform: translateX(10px) rotate(12deg) scale(1.05); }
+33% { transform: translateX(-10px) rotate(-12deg) scale(1.05); }
+50% { transform: translateX(12px) rotate(14deg) scale(1.1); }
+66% { transform: translateX(-12px) rotate(-14deg) scale(1.1); }
+83% { transform: translateX(8px) rotate(10deg) scale(1.05); }
+}
+
+/* Spin: smooth 720deg for more fun */
+@keyframes spinImproved {
+0% { transform: rotate(0deg);}
+100% { transform: rotate(720deg);}
+}
+
+/* Shake: fast but smooth horizontal jitter */
+@keyframes shakeImproved {
+0%, 100% { transform: translateX(0); }
+20%, 60% { transform: translateX(-10px) rotate(-3deg); }
+40%, 80% { transform: translateX(10px) rotate(3deg); }
+}
+
+/* Wave: wrist flick with ease and repeated */
+@keyframes waveImproved {
+0%, 100% { transform: rotate(0deg); }
+20% { transform: rotate(24deg); }
+40% { transform: rotate(-16deg); }
+60% { transform: rotate(24deg); }
+80% { transform: rotate(-12deg); }
+}
+
+/* Bow: smooth deep lean forward with perspective */
+@keyframes bowImproved {
+0%, 100% { transform: perspective(300px) rotateX(0deg); }
+50% { transform: perspective(300px) rotateX(75deg); }
+}
+
+/* Sit: natural smooth descend and compress */
+@keyframes sitImproved {
+0%, 100% { transform: translateY(0) scale(1); }
+50% { transform: translateY(32px) scale(0.82); }
+}
+
+/* Sleep: slow opacity fade and slight vertical bob */
+@keyframes sleepImproved {
+0%, 100% { opacity: 1; transform: translateY(0); }
+40% { opacity: 0.3; transform: translateY(6px); }
+80% { opacity: 0.4; transform: translateY(3px); }
+}
+
+/* Run: fast side to side with scale simulating steps and bounce */
+@keyframes runImproved {
+0%, 100% { transform: translateX(0) scale(1); }
+20% { transform: translateX(18px) scale(1.15) translateY(-6px); }
+40% { transform: translateX(36px) scale(1) translateY(0); }
+60% { transform: translateX(18px) scale(1.15) translateY(-6px); }
+80% { transform: translateX(0) scale(1) translateY(0); }
+}
+
+/* Clap: quick scale up and normal rapid repeated claps */
+@keyframes clapImproved {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.3); }
+}
+
+/* Talking animation: subtle mouth movement simulation with scale and small vertical */
+@keyframes talkAnim {
+0%, 100% { transform: translateY(0) scaleY(1); }
+25% { transform: translateY(2px) scaleY(0.9); }
+50% { transform: translateY(-2px) scaleY(1.1); }
+75% { transform: translateY(2px) scaleY(0.9); }
+}
+
+/* Class triggers applying the animations */
+
+.animate-jump {
+animation: jumpImproved 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.animate-dance {
+animation: danceImproved 3s ease-in-out 3 forwards;
+}
+.animate-spin {
+animation: spinImproved 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.animate-shake {
+animation: shakeImproved 0.75s ease-in-out forwards;
+}
+.animate-wave .char-icon {
+animation: waveImproved 2s ease-in-out 3 forwards;
+}
+.animate-bow {
+animation: bowImproved 1.3s ease forwards;
+transform-origin: center bottom;
+}
+.animate-sit {
+animation: sitImproved 1.3s ease forwards;
+}
+.animate-sleep {
+animation: sleepImproved 4s ease-in-out forwards;
+}
+.animate-run {
+animation: runImproved 1.7s ease-in-out 2 forwards;
+}
+.animate-clap {
+animation: clapImproved 0.35s ease-in-out 8 forwards;
+}
+.animate-talk {
+animation: talkAnim 1.5s ease-in-out 3 forwards;
+}
+
+/* Responsive sizes for small devices */
+@media (max-width: 360px) {
+.character {
+width: 70px;
+height: 110px;
+}
+.char-icon {
+font-size: 44px;
+}
+.char-name {
+font-size: 16px;
+}
+}
+    /* CSS موجود كما هو (لا حاجة لتعديله لأنه سليم) */
+    /* يمكنك نسخه من الكود السابق دون تغيير */
+  </style>
+</head>
+<body>
+  <h1>TOP✓YASSINE</h1>
+  <div class="characters" aria-label="قائمة الشخصيات">
+    <div class="character" id="char1" tabindex="0" role="button" aria-pressed="false" aria-label="الشخصية الأولى ياسنا">
+      <img src="duck.png" alt="بطة" width="50">
+      <div class="char-name">yassna</div>
+    </div>
+    <div class="character" id="char2" tabindex="0" role="button" aria-pressed="false" aria-label="الشخصية الثانية جوشوى">
+      <img src="char2.png" alt="قطة" width="50">
+      <div class="char-name">jochwa</div>
+    </div>
+    <div class="character" id="char3" tabindex="0" role="button" aria-pressed="false" aria-label="الشخصية الثالثة كيلوى">
+      <img src="char3.png" alt="كلب" width="50">
+      <div class="char-name">kilwa</div>
+    </div>
+    <div class="character" id="char4" tabindex="0" role="button" aria-pressed="false" aria-label="الشخصية الرابعة هادي شيها">
+      <img src="chicha.jpg" alt="chicha" width="50">
+      <div class="char-name">hadi chicha</div>
+    </div>
+  </div>  <div class="commands" aria-label="لوحة التحكم بالأوامر">
+    <label for="character-select">اختر الشخصية:</label>
+    <select id="character-select" aria-required="true">
+      <option value="" disabled selected>-- اختر شخصية --</option>
+      <option value="char1">yassna</option>
+      <option value="char2">jochwa</option>
+      <option value="char3">kilwa</option>
+      <option value="char4">hedi chicha</option>
+    </select><label for="action-select" style="margin-top: 16px;">اختر الفعل:</label>
+<select id="action-select" aria-required="true" size="12" style="height: auto;">
+  <option value="" disabled>-- اختر فعل --</option>
+  <option value="sayHello">يقول مرحباً</option>
+  <option value="jump">يقفز</option>
+  <option value="dance">يرقص</option>
+  <option value="spin">يدور</option>
+  <option value="shake">يهتز</option>
+  <option value="wave">يلوّح</option>
+  <option value="bow">ينحني</option>
+  <option value="sit">يجلس</option>
+  <option value="sleep">ينام</option>
+  <option value="run">يركض</option>
+  <option value="clap">يصفق</option>
+  <option value="sayAlhadi">hadi chicha</option>
+  <option value="kilwa">kilwa</option>
+</select>
+
+<button id="command-btn" aria-live="polite" disabled>تنفيذ الأمر</button>
+<div class="action-message" id="action-message" aria-live="polite" aria-atomic="true" role="region" tabindex="0"></div>
+
+  </div>  <!-- الأصوات --><audio id="audio-jump" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio> <audio id="audio-dance" src="https://actions.google.com/sounds/v1/ambiences/casino_slot_machine.ogg" preload="auto"></audio> <audio id="audio-spin" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle.ogg" preload="auto"></audio> <audio id="audio-shake" src="https://actions.google.com/sounds/v1/animals/cat_meow.ogg" preload="auto"></audio> <audio id="audio-wave" src="https://actions.google.com/sounds/v1/human_voices/clapping.ogg" preload="auto"></audio> <audio id="audio-bow" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio> <audio id="audio-sit" src="https://actions.google.com/sounds/v1/wood/wood_plank_flicks.ogg" preload="auto"></audio> <audio id="audio-sleep" src="https://actions.google.com/sounds/v1/ambiences/heartbeat.ogg" preload="auto"></audio> <audio id="audio-run" src="https://actions.google.com/sounds/v1/human_voices/falling.ogg" preload="auto"></audio> <audio id="audio-clap" src="clap.mp3" preload="auto"></audio> <audio id="audio-talk" src="blowjob.mp3" preload="auto"></audio> <audio id="audio-kilwa" src="kelwa.mp3" preload="auto"></audio>
+
+  <script>
+    const characterSelect = document.getElementById('character-select');
+    const actionSelect = document.getElementById('action-select');
+    const commandBtn = document.getElementById('command-btn');
+    const actionMessage = document.getElementById('action-message');
+
+    const characters = {
+      char1: { name: 'yassna', element: document.getElementById('char1') },
+      char2: { name: 'jochwa', element: document.getElementById('char2') },
+      char3: { name: 'kilwa', element: document.getElementById('char3') },
+      char4: { name: 'hadi chicha', element: document.getElementById('char4') }
+    };
+
+    const actionSounds = {
+      jump: 'audio-jump',
+      dance: 'audio-dance',
+      spin: 'audio-spin',
+      shake: 'audio-shake',
+      wave: 'audio-wave',
+      bow: 'audio-bow',
+      sit: 'audio-sit',
+      sleep: 'audio-sleep',
+      run: 'audio-run',
+      clap: 'audio-clap',
+      sayAlhadi: 'audio-talk',
+      sayHello: 'audio-talk',
+      kilwa: 'audio-kilwa'
+    };
+
+    const allowedSayAlhadiChars = ['char4'];
+    const kilwasay = ['char3'];
+
+    function stopAllSounds() {
+      Object.values(actionSounds).forEach(id => {
+        const sound = document.getElementById(id);
+        if (sound) {
+          sound.pause();
+          sound.currentTime = 0;
+        }
+      });
+    }
+
+    function resetCharacterStates() {
+      Object.values(characters).forEach(char => {
+        char.element.setAttribute('aria-pressed', 'false');
+        char.element.className = 'character';
+      });
+      actionMessage.textContent = '';
+    }
+
+    function canExecute() {
+      return characterSelect.value && actionSelect.value;
+    }
+
+    function playSound(id) {
+      const sound = document.getElementById(id);
+      if (!sound) return;
+      sound.pause();
+      sound.currentTime = 0;
+      sound.play().catch(() => {});
+    }
+
+    characterSelect.addEventListener('change', () => {
+      stopAllSounds();
+      commandBtn.disabled = !canExecute();
+    });
+
+    actionSelect.addEventListener('change', () => {
+      stopAllSounds();
+      commandBtn.disabled = !canExecute();
+    });
+
+    commandBtn.addEventListener('click', () => {
+      const charId = characterSelect.value;
+      const action = actionSelect.value;
+      performAction(charId, action);
+    });
+
+    function performAction(charId, action) {
+      const char = characters[charId];
+      if (!char) return;
+      resetCharacterStates();
+      char.element.setAttribute('aria-pressed', 'true');
+      char.element.className = 'character';
+
+      let msg = '';
+      stopAllSounds();
+
+      if (action === 'sayAlhadi') {
+        if (allowedSayAlhadiChars.includes(charId)) {
+          msg = `${char.name} : الهادي كحلوش يشيش`;
+          char.element.classList.add('animate-talk');
+          playSound('audio-talk');
+        } else {
+          msg = `الشخصية "${char.name}" لا يمكنها تنفيذ هذا الفعل.`;
+        }
+        actionMessage.textContent = msg;
+        actionMessage.focus();
+        return;
+      }
+
+      if (action === 'kilwa') {
+        if (kilwasay.includes(charId)) {
+          msg = `${char.name} : كيوا كيوا!`;
+          char.element.classList.add('animate-talk');
+          playSound('audio-kilwa');
+        } else {
+          msg = `هذا الفعل مخصص فقط لـ kilwa.`;
+        }
+        actionMessage.textContent = msg;
+        actionMessage.focus();
+        return;
+      }
+
+      msg = `${char.name} يقوم بفعل: ${action}`;
+      char.element.classList.add(`animate-${action}`);
+      if (actionSounds[action]) playSound(actionSounds[action]);
+      actionMessage.textContent = msg;
+      actionMessage.focus();
+    }
+  </script></body>
+</html>
