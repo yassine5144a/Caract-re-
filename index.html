@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -78,10 +79,10 @@
     margin-bottom: 10px;  
     font-size: 20px;  
   }  
-  select, button {  
+  .b1 {  
     width: 100%;  
     font-size: 19px;  
-    padding: 14px;  
+    padding: 5px;  
     border-radius: 12px;  
     border: none;  
     background: #5a4ea0;  
@@ -247,8 +248,25 @@ font-size: 44px;
 font-size: 16px;
 }
 }
-    /* CSS موجود كما هو (لا حاجة لتعديله لأنه سليم) */
-    /* يمكنك نسخه من الكود السابق دون تغيير */
+  #hadi-btn{
+    color: red;
+    background-color: yellow;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.35);  
+    transition: background 0.4s ease;
+    border: none;
+    width: 100%;
+    padding: 5px;  
+    border-radius: 12px;
+    
+  }
+  #hadi-btn:hover:not(:disabled) {  
+    background: #8b7fe9;  
+  }  
+  #hadi-btn:disabled {  
+    background: #8b7fc9;  
+    cursor: not-allowed;
+  }
+    /* التنسيق كما هو بدون تغيير */
   </style>
 </head>
 <body>
@@ -270,43 +288,61 @@ font-size: 16px;
       <img src="chicha.jpg" alt="chicha" width="50">
       <div class="char-name">hadi chicha</div>
     </div>
-  </div>  <div class="commands" aria-label="لوحة التحكم بالأوامر">
+  </div>
+  <div class="commands" aria-label="لوحة التحكم بالأوامر">
     <label for="character-select">اختر الشخصية:</label>
-    <select id="character-select" aria-required="true">
+    <select class="b1"id="character-select" aria-required="true">
       <option value="" disabled selected>-- اختر شخصية --</option>
-      <option value="char1">yassna</option>
+      <option  value="char1">yassna</option>
       <option value="char2">jochwa</option>
       <option value="char3">kilwa</option>
       <option value="char4">hedi chicha</option>
-    </select><label for="action-select" style="margin-top: 16px;">اختر الفعل:</label>
-<select id="action-select" aria-required="true" size="12" style="height: auto;">
-  <option value="" disabled>-- اختر فعل --</option>
-  <option value="sayHello">يقول مرحباً</option>
-  <option value="jump">يقفز</option>
-  <option value="dance">يرقص</option>
-  <option value="spin">يدور</option>
-  <option value="shake">يهتز</option>
-  <option value="wave">يلوّح</option>
-  <option value="bow">ينحني</option>
-  <option value="sit">يجلس</option>
-  <option value="sleep">ينام</option>
-  <option value="run">يركض</option>
-  <option value="clap">يصفق</option>
-  <option value="sayAlhadi">hadi chicha</option>
-  <option value="kilwa">kilwa</option>
-</select>
+    </select>
+    <label for="action-select" style="margin-top: 16px;">اختر الفعل:</label>
+    <select class="b1"id="action-select" aria-required="true" size="12" style="height: auto;">
+      <option cavalue="" disabled>-- اختر فعل --</option>
+      <option value="sayHello">يقول مرحباً</option>
+      <option value="jump">يقفز</option>
+      <option value="dance">يرقص</option>
+      <option value="spin">يدور</option>
+      <option value="shake">يهتز</option>
+      <option value="wave">يلوّح</option>
+      <option value="bow">ينحني</option>
+      <option value="sit">يجلس</option>
+      <option value="sleep">ينام</option>
+      <option value="run">يركض</option>
+      <option value="clap">يصفق</option>
+      <option value="sayAlhadi">hadi chicha</option>
+      <option value="kilwa">kilwa</option>
+    </select>
+    
+    <button class="b1" id="command-btn" aria-live="polite" disabled>تنفيذ الأمر</button>
+    <button id="hadi-btn">انقر لسماع نكتة الموسم</button>
+    <button class="b1"id="boom-btn">BOOM! انفجار درامي</button>
+    <div class="action-message" id="action-message" aria-live="polite" aria-atomic="true" role="region" tabindex="0"></div>
+  </div>
+  
 
-<button id="command-btn" aria-live="polite" disabled>تنفيذ الأمر</button>
-<div class="action-message" id="action-message" aria-live="polite" aria-atomic="true" role="region" tabindex="0"></div>
-
-  </div>  <!-- الأصوات --><audio id="audio-jump" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio> <audio id="audio-dance" src="https://actions.google.com/sounds/v1/ambiences/casino_slot_machine.ogg" preload="auto"></audio> <audio id="audio-spin" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle.ogg" preload="auto"></audio> <audio id="audio-shake" src="https://actions.google.com/sounds/v1/animals/cat_meow.ogg" preload="auto"></audio> <audio id="audio-wave" src="https://actions.google.com/sounds/v1/human_voices/clapping.ogg" preload="auto"></audio> <audio id="audio-bow" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio> <audio id="audio-sit" src="https://actions.google.com/sounds/v1/wood/wood_plank_flicks.ogg" preload="auto"></audio> <audio id="audio-sleep" src="https://actions.google.com/sounds/v1/ambiences/heartbeat.ogg" preload="auto"></audio> <audio id="audio-run" src="https://actions.google.com/sounds/v1/human_voices/falling.ogg" preload="auto"></audio> <audio id="audio-clap" src="clap.mp3" preload="auto"></audio> <audio id="audio-talk" src="blowjob.mp3" preload="auto"></audio> <audio id="audio-kilwa" src="kelwa.mp3" preload="auto"></audio>
+  <audio id="audio-jump" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
+  <audio id="audio-dance" src="https://actions.google.com/sounds/v1/ambiences/casino_slot_machine.ogg" preload="auto"></audio>
+  <audio id="audio-spin" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle.ogg" preload="auto"></audio>
+  <audio id="audio-shake" src="https://actions.google.com/sounds/v1/animals/cat_meow.ogg" preload="auto"></audio>
+  <audio id="audio-wave" src="https://actions.google.com/sounds/v1/human_voices/clapping.ogg" preload="auto"></audio>
+  <audio id="audio-bow" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+  <audio id="audio-sit" src="https://actions.google.com/sounds/v1/wood/wood_plank_flicks.ogg" preload="auto"></audio>
+  <audio id="audio-sleep" src="https://actions.google.com/sounds/v1/ambiences/heartbeat.ogg" preload="auto"></audio>
+  <audio id="audio-run" src="https://actions.google.com/sounds/v1/human_voices/falling.ogg" preload="auto"></audio>
+  <audio id="audio-clap" src="clap.mp3" preload="auto"></audio>
+  <audio id="audio-talk" src="blowjob.mp3" preload="auto"></audio>
+  <audio id="audio-kilwa" src="kelwa.mp3" preload="auto"></audio>
+  <audio id="hadi-sound" src="hedi.mp3" preload="auto"></audio>
 
   <script>
     const characterSelect = document.getElementById('character-select');
     const actionSelect = document.getElementById('action-select');
     const commandBtn = document.getElementById('command-btn');
+    const boomBtn = document.getElementById('boom-btn');
     const actionMessage = document.getElementById('action-message');
-
     const characters = {
       char1: { name: 'yassna', element: document.getElementById('char1') },
       char2: { name: 'jochwa', element: document.getElementById('char2') },
@@ -327,11 +363,19 @@ font-size: 16px;
       clap: 'audio-clap',
       sayAlhadi: 'audio-talk',
       sayHello: 'audio-talk',
-      kilwa: 'audio-kilwa'
+      kilwa: 'audio-kilwa',
+      talk: 'audio-talk'
     };
 
     const allowedSayAlhadiChars = ['char4'];
     const kilwasay = ['char3'];
+
+    const charActionsCount = {
+      char1: 0,
+      char2: 0,
+      char3: 0,
+      char4: 0
+    };
 
     function stopAllSounds() {
       Object.values(actionSounds).forEach(id => {
@@ -366,6 +410,7 @@ font-size: 16px;
     characterSelect.addEventListener('change', () => {
       stopAllSounds();
       commandBtn.disabled = !canExecute();
+      localStorage.setItem('lastChar', characterSelect.value);
     });
 
     actionSelect.addEventListener('change', () => {
@@ -373,21 +418,27 @@ font-size: 16px;
       commandBtn.disabled = !canExecute();
     });
 
+    window.addEventListener('load', () => {
+      const lastChar = localStorage.getItem('lastChar');
+      if (lastChar) {
+        characterSelect.value = lastChar;
+        commandBtn.disabled = !canExecute();
+      }
+    });
+
     commandBtn.addEventListener('click', () => {
       const charId = characterSelect.value;
       const action = actionSelect.value;
-      performAction(charId, action);
-    });
-
-    function performAction(charId, action) {
       const char = characters[charId];
       if (!char) return;
+
       resetCharacterStates();
       char.element.setAttribute('aria-pressed', 'true');
       char.element.className = 'character';
 
-      let msg = '';
       stopAllSounds();
+      charActionsCount[charId]++;
+      let msg = '';
 
       if (action === 'sayAlhadi') {
         if (allowedSayAlhadiChars.includes(charId)) {
@@ -415,11 +466,45 @@ font-size: 16px;
         return;
       }
 
+      // تنفيذ الأفعال العادية مع الصوت
       msg = `${char.name} يقوم بفعل: ${action}`;
+      if (charActionsCount[charId] === 3) {
+        msg += `\n${char.name} يقول: واش ما عندك غير أنا؟`;
+      }
+
       char.element.classList.add(`animate-${action}`);
       if (actionSounds[action]) playSound(actionSounds[action]);
+
       actionMessage.textContent = msg;
       actionMessage.focus();
-    }
-  </script></body>
-</html>
+    });
+
+    boomBtn.addEventListener('click', () => {
+  // قائمة الشخصيات التي يمكن تنفيذ الـ BOOM عليها (باستثناء hadi chicha)
+  const availableCharacters = ['char1', 'char2', 'char3'];
+
+  // تكرار عبر الشخصيات المتاحة
+  availableCharacters.forEach(charId => {
+    const char = characters[charId];
+    char.element.className = "character";
+    void char.element.offsetWidth; // للإنشاء التفاعل المتجدد
+    char.element.classList.add("animate-clap");
+  });
+
+  // التعامل مع حركة دوران 180 درجة لشخصية hadi chicha (لتدير ظهرها نحو الشخصيات الأخرى)
+  const hadiChicha = characters['char4'];
+  hadiChicha.element.className = "character animate-turn-back"; // إضافة حركة دوران الظهر
+  hadiChicha.element.style.animation = "turnBack 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards"; // دوران الظهر
+
+  playSound("audio-clap");
+  actionMessage.textContent = " هادي الميبونBOOMالكل تنيك في الهادي!";
+});
+  document.getElementById("hadi-btn").addEventListener("click", function () {
+    const audio = document.getElementById("hadi-sound");
+    audio.currentTime = 0;
+    audio.play();
+  });
+
+  </script>
+</body>
+  </html>
